@@ -226,7 +226,8 @@ router.delete('/:id', auth, async (req, res) => {
       SELECT * FROM RESTAURANT
       WHERE restaurant_id = ? AND owner_id = ?
     `, [restaurantId, userId]);
-    
+
+    // 필요 없는 기능일 수 있음 나중에 삭제 가능성 검토
     if (restaurants.length === 0) {
       return res.status(403).json({ message: '해당 식당을 삭제할 권한이 없습니다.' });
     }
