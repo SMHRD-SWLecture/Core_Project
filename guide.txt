@@ -1,0 +1,157 @@
+# Different, Together QR 오더 서비스 설치 가이드
+
+## 1. MySQL 설치 및 설정
+
+### Windows에서 MySQL 설치
+1. MySQL 공식 사이트(https://dev.mysql.com/downloads/installer/)에서 MySQL Installer를 다운로드합니다.
+2. 다운로드한 설치 파일을 실행하고 'Developer Default' 또는 'Server only' 옵션을 선택합니다.
+3. 설치 과정에서 root 비밀번호를 설정하고 기억해둡니다.
+4. MySQL Server와 MySQL Workbench가 모두 설치되었는지 확인합니다.
+
+### macOS에서 MySQL 설치
+1. Homebrew를 사용하는 경우 터미널에서 다음 명령어를 실행합니다:
+   ```
+   brew install mysql
+   ```
+2. MySQL을 시작합니다:
+   ```
+   brew services start mysql
+   ```
+3. 비밀번호를 설정합니다:
+   ```
+   mysql_secure_installation
+   ```
+
+### Linux(Ubuntu)에서 MySQL 설치
+1. 터미널에서 다음 명령어를 실행합니다:
+   ```
+   sudo apt update
+   sudo apt install mysql-server
+   ```
+2. MySQL 보안 설정을 합니다:
+   ```
+   sudo mysql_secure_installation
+   ```
+
+## 2. 데이터베이스 설정
+
+### MySQL Workbench 또는 터미널로 접속
+1. MySQL Workbench를 열거나 터미널에서 다음 명령어로 MySQL에 접속합니다:
+   ```
+   mysql -u root -p
+   ```
+2. 설치 중 설정한 비밀번호를 입력합니다.
+
+### 프로젝트용 데이터베이스 생성
+다음 SQL 명령어로 데이터베이스를 생성합니다:
+```sql
+CREATE DATABASE different_together CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 사용자 생성 및 권한 부여 (선택사항)
+개발 환경이 아닌 경우, root 대신 전용 사용자를 만드는 것이 좋습니다:
+```sql
+CREATE USER 'dt_user'@'localhost' IDENTIFIED BY '새비밀번호';
+GRANT ALL PRIVILEGES ON different_together.* TO 'dt_user'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+## 3. 애플리케이션 설정
+
+### 프로젝트 다운로드
+1. 프로젝트를 클론하거나 다운로드합니다.
+2. 프로젝트 루트 디렉토리로 이동합니다.
+
+### 가상 환경 설정
+```
+python -m venv venv
+```
+
+Windows에서 가상 환경 활성화:
+```
+venv\Scripts\activate
+```
+
+macOS/Linux에서 가상 환경 활성화:
+```
+source venv/bin/activate
+```
+
+### 필요한 패키지 설치
+```
+pip install -r requirements.txt
+```
+
+### 환경 변수 설정
+프로젝트 루트에 `.env` 파일을 생성하고 다음 내용을 작성합니다:
+```
+FLASK_APP=app.py
+FLASK_ENV=development
+SECRET_KEY=개발용_시크릿_키
+
+# 데이터베이스 설정
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root  # 또는 생성한 사용자
+DB_PASSWORD=비밀번호
+DB_NAME=different_together
+
+# Google API 키 (선택사항)
+GOOGLE_TRANSLATE_API_KEY=your_google_translate_api_key
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+## 4. 데이터베이스 초기화
+
+### 스키마 생성 및 초기 데이터 로드
+프로젝트에 포함된 스크립트를 사용하여 데이터베이스 스키마를 생성하고 초기 데이터를 로드합니다.
+
+방법 1: MySQL Workbench 또는 MySQL 클라이언트에서 직접 실행
+1. `db/schema.sql` 파일을 실행하여 테이블을 생성합니다.
+2. `db/seed_data.sql` 파일을 실행하여 초기 데이터를 로드합니다.
+
+방법 2: 애플리케이션 내장 초기화 기능 사용
+1. 애플리케이션을 실행하면 자동으로 데이터베이스 초기화를 시도합니다.
+2. 수동으로 초기화하려면, 애플리케이션 실행 후 브라우저에서 `/init-db` 경로에 접속합니다.
+
+## 5. 애플리케이션 실행
+
+### 개발 서버 실행
+```
+flask run
+```
+또는
+```
+python app.py
+```
+
+### 애플리케이션 접속
+웹 브라우저에서 `http://localhost:5000`으로 접속합니다.
+
+## 6. 테스트 계정 정보
+
+초기 데이터에 포함된 테스트 계정으로 로그인할 수 있습니다:
+
+### 식당 주인 계정
+- 이메일: admin@example.com
+- 비밀번호: admin123
+
+### 일반 사용자 계정
+- 이메일: user@example.com
+- 비밀번호: user123
+
+## 7. 문제 해결
+
+### 데이터베이스 연결 오류
+- MySQL 서비스가 실행 중인지 확인합니다.
+- 환경 변수에 설정된 데이터베이스 접속 정보가 정확한지 확인합니다.
+- 사용자에게 적절한 권한이 부여되었는지 확인합니다.
+
+### 패키지 설치 오류
+- Python 버전이 3.8 이상인지 확인합니다.
+- pip를 최신 버전으로 업데이트합니다: `pip install --upgrade pip`
+
+### 애플리케이션 실행 오류
+- 로그를 확인하여 오류 원인을 파악합니다.
+- 환경 변수가 올바르게 설정되었는지 확인합니다.
+- 가상 환경이 활성화되었는지 확인합니다.

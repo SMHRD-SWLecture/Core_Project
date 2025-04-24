@@ -1,0 +1,217 @@
+/*
+ * Different, Together - QR 오더 서비스
+ * 메뉴 페이지 스타일시트
+ */
+
+/* 메뉴 페이지 고유 스타일 */
+body {
+    background-color: var(--bg-light);
+    padding-bottom: 80px; /* 장바구니 버튼 고려 */
+}
+
+/* 레스토랑 커버 이미지 */
+.restaurant-cover-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* 레스토랑 뱃지 */
+.restaurant-badges .badge {
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+}
+
+/* 메뉴 탭 네비게이션 */
+.menu-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding-bottom: 5px;
+}
+
+.menu-tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.menu-tabs .nav-link {
+    border-radius: var(--border-radius-pill);
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.menu-tabs .nav-link.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* 메뉴 아이템 카드 */
+.menu-item {
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.menu-img {
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+/* 추천 메뉴 배너 */
+.recommendation-icon {
+    background-color: white;
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* 메뉴 검색 */
+.menu-search .form-control {
+    height: 48px;
+    padding-left: 1rem;
+}
+
+/* 장바구니 버튼 */
+.cart-button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.cart-button {
+    padding: 0.75rem 2rem;
+    box-shadow: var(--shadow);
+}
+
+.cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: white;
+    color: var(--primary);
+    border-radius: 50%;
+    margin-left: 8px;
+}
+
+/* 장바구니 모달 */
+.cart-item {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.item-quantity-control {
+    display: flex;
+    align-items: center;
+}
+
+.item-quantity-control .btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.item-quantity-control .form-control {
+    width: 40px;
+    height: 30px;
+    padding: 0.25rem;
+    text-align: center;
+}
+
+/* 메뉴 상세 모달 */
+.menu-detail-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 1rem;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-input {
+    text-align: center;
+}
+
+/* 주문 완료 아이콘 */
+.success-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--success);
+}
+
+/* 스크롤바 숨기기 유틸리티 */
+.hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* 영어 번역 텍스트 */
+.english-translation {
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 767.98px) {
+    .restaurant-cover-img {
+        height: 150px;
+    }
+    
+    .restaurant-info-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* 식품 알레르기 배지 */
+.allergen-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.25rem;
+    border-radius: var(--border-radius-sm);
+}
+
+/* 메뉴 카테고리 헤더 */
+.category-header {
+    font-weight: 700;
+    margin: 1rem 0 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
